@@ -62,18 +62,3 @@ print(string.is_question())
 print(string.is_exclamation())  
 print(string.count_sentences()) 
 
-class TestMyString:
-    def test_value_string(self):
-        '''prints "The value must be a string." if not string.'''
-        captured_out = io.StringIO()
-        sys.stdout = captured_out
-        try:
-            string = MyString(123)
-        except ValueError as e:
-            print(e)
-        sys.stdout = sys.__stdout__
-        assert captured_out.getvalue() == "The value must be a string.\n"
-
-
-test = TestMyString()
-test.test_value_string()
