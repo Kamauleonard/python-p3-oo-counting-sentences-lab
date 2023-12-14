@@ -1,64 +1,37 @@
-import re
-import io
-import sys
+#!/usr/bin/env python3
 
 class MyString:
-    """
-    MyString class represents a string with additional methods for sentence analysis.
-    """
+    def __init__(self, value=None):
+        if value is None:
+            print("The value must be a string.")
+        else:
+            self.set_value(value)
 
-    def __init__(self, value=""):
-        """
-        Initialize the MyString instance.
+    def get_value(self):
+        return self._value
 
-        Args:
-            value (str): The string value.
-        """
-        if not isinstance(value, str):
-            raise ValueError("The value must be a string.")
-        self.value = value
+    def set_value(self, new_value):
+        if not isinstance(new_value, str) or not new_value:
+            print("The value must be a non-empty string.")
+        else:
+            self._value = new_value
 
     def is_sentence(self):
-        """
-        Check if the value ends with a period.
-
-        Returns:
-            bool: True if the value ends with a period, False otherwise.
-        """
-        return self.value.endswith('.')
+        return self._value.endswith('.')
 
     def is_question(self):
-        """
-        Check if the value ends with a question mark.
-
-        Returns:
-            bool: True if the value ends with a question mark, False otherwise.
-        """
-        return self.value.endswith('?')
+        return self._value.endswith('?')
 
     def is_exclamation(self):
-        """
-        Check if the value ends with an exclamation mark.
-
-        Returns:
-            bool: True if the value ends with an exclamation mark, False otherwise.
-        """
-        return self.value.endswith('!')
+        return self._value.endswith('!')
 
     def count_sentences(self):
-        """
-        Count the number of sentences in the value.
+        if not hasattr(self, '_value'):
+            print("The value must be set before counting sentences.")
+            return 0
 
-        Returns:
-            int: The number of sentences.
-        """
-        sentences = [s.strip() for s in re.split(r'[.!?]', self.value) if s.strip()]
+        cleaned_value = self._value.replace('?', '.').replace('!', '.')
+        sentences = [sentence.strip() for sentence in cleaned_value.split('.') if sentence.strip()]
         return len(sentences)
 
-
-string = MyString("This is a string! It has three sentences. Right?")
-print(string.is_sentence())    
-print(string.is_question())    
-print(string.is_exclamation())  
-print(string.count_sentences()) 
 
